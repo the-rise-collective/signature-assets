@@ -39,6 +39,7 @@
     outline:none;
   }
   .controls input{flex:1;min-width:180px;}
+  #brandFilter{min-width:160px;}
   .controls input:focus, .controls select:focus{border-color:#b8afa4;}
   .brand-tag{
     display:inline-block;
@@ -115,7 +116,7 @@
   .note b{color:var(--ink);}
   .list{
     margin-top:6px;
-    max-height:180px;
+    max-height:340px;
     overflow-y:auto;
     border:1px solid var(--line);
     border-radius:8px;
@@ -138,6 +139,9 @@
   <p class="sub">Find your name, copy your signature, paste it into your email client's signature settings.</p>
 
   <div class="controls">
+    <select id="brandFilter">
+      <option value="all">All Brands</option>
+    </select>
     <input id="search" type="text" placeholder="Search by name…" autocomplete="off">
   </div>
   <div id="list" class="list"></div>
@@ -165,13 +169,20 @@
 </div>
 
 <script>
-const GH_BASE = "https://raw.githubusercontent.com/yushia-marae/rise-signature-assets/main/";
+const GH_BASE = "https://raw.githubusercontent.com/the-rise-collective/signature-assets/main/";
 const ELLIOTT_PHOTO   = GH_BASE + "Elliott_Caldwell_portrait.png";
 const EMILY_PHOTO     = GH_BASE + "Emily_Uselman_portrait.png";
 const AVA_PHOTO       = GH_BASE + "Ava_Girard_portrait.png";
 const MIRABELLA_PHOTO = GH_BASE + "Mirabella_Judd_portrait.png";
 const ALBERT_PHOTO    = GH_BASE + "Albert_Brown_portrait.png";
 const YUSHIA_PHOTO    = GH_BASE + "Yushia_Marae_Tajanlangit_portrait.png";
+
+const ROAM_ELLIOTT_PHOTO   = GH_BASE + "Elliott_Caldwell_roam.png";
+const ROAM_EMILY_PHOTO     = GH_BASE + "Emily_Uselman_roam.png";
+const ROAM_AVA_PHOTO       = GH_BASE + "Ava_Girard_roam.png";
+const ROAM_MIRABELLA_PHOTO = GH_BASE + "Mirabella_Judd_roam.png";
+const ROAM_ALBERT_PHOTO    = GH_BASE + "Albert_Brown_roam.png";
+const ROAM_YUSHIA_PHOTO    = GH_BASE + "Yushia_Marae_Tajanlangit_roam.png";
 const ICON_URL = {
   website:  GH_BASE + "website.png",
   mail:     GH_BASE + "mail.png",
@@ -187,6 +198,7 @@ const brandTemplates = {
   "THE RISE COLLECTIVE": {
     display: "THE RISE COLLECTIVE",
     accent: "#ffffff",
+    layout: "rise",
     social: {
       website:  "http://www.rise-collective.com/",
       mail:     "https://rise-collective.com/#contact",
@@ -197,6 +209,128 @@ const brandTemplates = {
       youtube:  "https://www.youtube.com/@the_rise_collective",
       podcast:  "https://elliottcaldwell.com/"
     }
+  },
+  "Roam Hospitality": {
+    display: "Roam Hospitality",
+    layout: "rise",
+    bg: "#082930",
+    text: "#ffffff",
+    nameAccent: "#9cbec8",
+    logo: GH_BASE + "roam-logo-cropped.png",
+    logoW: 85, logoH: 35,
+    phoneIcon: GH_BASE + "phone-roam.png",
+    mailIcon: GH_BASE + "mail-roam.png"
+  },
+  "BNB Turnkey": {
+    display: "BNB Turnkey",
+    layout: "rise",
+    bg: "#FFFFFF",
+    text: "#000000",
+    nameAccent: "#89cc4e",
+    logo: GH_BASE + "bnb-turnkey-logo-cropped.png",
+    logoW: 85, logoH: 21,
+    phoneIcon: GH_BASE + "phone-roam.png",
+    mailIcon: GH_BASE + "mail-roam.png"
+  },
+  "Home Team Luxury Rentals": {
+    display: "Home Team Luxury Rentals",
+    layout: "rise",
+    accent: "#000000",
+    social: {
+      website:  "http://www.rise-collective.com/",
+      mail:     "https://rise-collective.com/#contact",
+      linkedin: "https://www.linkedin.com/company/the-risecollective/",
+      instagram:"https://www.instagram.com/the_rise_collective_?igsh=eWI3M2txcWw0bW5j",
+      facebook: "https://www.facebook.com/share/1G8kjPCyNm/?mibextid=wwXIfr",
+      pinterest:"https://www.pinterest.com/the_rise_collective/",
+      youtube:  "https://www.youtube.com/@the_rise_collective",
+      podcast:  "https://elliottcaldwell.com/"
+    }
+  },
+  "Paradiso": {
+    display: "Paradiso",
+    layout: "rise",
+    bg: "#000000",
+    text: "#ffffff",
+    logo: GH_BASE + "paradiso-logo-cropped.png",
+    logoW: 85, logoH: 45,
+    phoneIcon: GH_BASE + "phone-roam.png",
+    mailIcon: GH_BASE + "mail-roam.png"
+  },
+  "BNB Construction": {
+    display: "BNB Construction",
+    layout: "rise",
+    bg: "#142534",
+    text: "#ffffff",
+    nameAccent: "#fe8a22",
+    logo: GH_BASE + "bnb-construction-logo-cropped.png",
+    logoW: 85, logoH: 28,
+    phoneIcon: GH_BASE + "phone-roam.png",
+    mailIcon: GH_BASE + "mail-roam.png"
+  },
+  "Sand Key Vacation Rentals": {
+    display: "Sand Key Vacation Rentals",
+    layout: "rise",
+    bg: "#0A5E70",
+    text: "#ffffff",
+    nameAccent: "#F9A64A",
+    logo: GH_BASE + "sandkey-vacation-rentals-logo-cropped.png",
+    logoW: 85, logoH: 28,
+    phoneIcon: GH_BASE + "phone-roam.png",
+    mailIcon: GH_BASE + "mail-roam.png"
+  },
+  "Home Team Luxury Realty": {
+    display: "Home Team Luxury Realty",
+    layout: "rise",
+    bg: "#ffffff",
+    text: "#000000",
+    logo: GH_BASE + "home-team-luxury-realty-logo-cropped.png",
+    logoW: 85, logoH: 38,
+    phoneIcon: GH_BASE + "phone-roam.png",
+    mailIcon: GH_BASE + "mail-roam.png"
+  },
+  "STR Realtor Search": {
+    display: "STR Realtor Search",
+    layout: "rise",
+    bg: "#000000",
+    text: "#ffffff",
+    nameAccent: "#009fe3",
+    logo: GH_BASE + "str-realtor-search-logo-cropped.png",
+    logoW: 85, logoH: 22,
+    phoneIcon: GH_BASE + "phone-roam.png",
+    mailIcon: GH_BASE + "mail-roam.png"
+  },
+  "Legacy Business Services": {
+    display: "Legacy Business Services",
+    layout: "rise",
+    bg: "#000000",
+    text: "#ffffff",
+    logo: GH_BASE + "legacy-business-services-log-cropped.png",
+    logoW: 85, logoH: 22,
+    phoneIcon: GH_BASE + "phone-roam.png",
+    mailIcon: GH_BASE + "mail-roam.png"
+  },
+  "Surge Tax": {
+    display: "Surge Tax",
+    layout: "rise",
+    bg: "#361e1c",
+    text: "#ffffff",
+    nameAccent: "#ff6038",
+    logo: GH_BASE + "surge-tax-logo-cropped.png",
+    logoW: 85, logoH: 28,
+    phoneIcon: GH_BASE + "phone-roam.png",
+    mailIcon: GH_BASE + "mail-roam.png"
+  },
+  "BNB Lending": {
+    display: "BNB Lending",
+    layout: "rise",
+    bg: "#000000",
+    text: "#ffffff",
+    nameAccent: "#4d2cf6",
+    logo: GH_BASE + "bnb-lending-logo-cropped.png",
+    logoW: 85, logoH: 27,
+    phoneIcon: GH_BASE + "phone-roam.png",
+    mailIcon: GH_BASE + "mail-roam.png"
   }
 };
 
@@ -206,7 +340,75 @@ const employees = [
   { name:"Ava Girard",                title:"Marketing Manager",             phone:"803-507-3548", email:"ava@rise-collective.com",       website:"www.rise-collective.com", brand:"THE RISE COLLECTIVE", photo:AVA_PHOTO },
   { name:"Mirabella Judd",            title:"Marketing Manager",             phone:"813-997-2074", email:"mirabella@rise-collective.com", website:"www.rise-collective.com", brand:"THE RISE COLLECTIVE", photo:MIRABELLA_PHOTO },
   { name:"Albert Brown",              title:"Digital Marketing Manager",     phone:"619-586-2817", email:"albert@rise-collective.com",    website:"www.rise-collective.com", brand:"THE RISE COLLECTIVE", photo:ALBERT_PHOTO },
-  { name:"Yushia Marae Tajanlangit",  title:"Marketing Associate",           phone:"",             email:"yushia@rise-collective.com",    website:"www.rise-collective.com", brand:"THE RISE COLLECTIVE", photo:YUSHIA_PHOTO }
+  { name:"Yushia Marae Tajanlangit",  title:"Marketing Associate",           phone:"",             email:"yushia@rise-collective.com",    website:"www.rise-collective.com", brand:"THE RISE COLLECTIVE", photo:YUSHIA_PHOTO },
+
+  { name:"Elliott Caldwell",          title:"CEO / Co-founder",              phone:"",             email:"elliott@rise-collective.com",   website:"www.rise-collective.com", brand:"Roam Hospitality", photo:ELLIOTT_PHOTO },
+  { name:"Emily Uselman",             title:"Chief Marketing Officer",       phone:"706-325-3120", email:"emily@rise-collective.com",     website:"www.rise-collective.com", brand:"Roam Hospitality", photo:EMILY_PHOTO },
+  { name:"Ava Girard",                title:"Marketing Manager",             phone:"803-507-3548", email:"ava@rise-collective.com",       website:"www.rise-collective.com", brand:"Roam Hospitality", photo:AVA_PHOTO },
+  { name:"Mirabella Judd",            title:"Marketing Manager",             phone:"813-997-2074", email:"mirabella@rise-collective.com", website:"www.rise-collective.com", brand:"Roam Hospitality", photo:MIRABELLA_PHOTO },
+  { name:"Albert Brown",              title:"Digital Marketing Manager",     phone:"619-586-2817", email:"albert@rise-collective.com",    website:"www.rise-collective.com", brand:"Roam Hospitality", photo:ALBERT_PHOTO },
+  { name:"Yushia Marae Tajanlangit",  title:"Marketing Associate",           phone:"",             email:"yushia@rise-collective.com",    website:"www.rise-collective.com", brand:"Roam Hospitality", photo:YUSHIA_PHOTO },
+
+  { name:"Elliott Caldwell", title:"CEO / Co-founder", phone:"", email:"elliott@bnb-turnkey.com", website:"bnb-turnkey.com", brand:"BNB Turnkey", photo:ELLIOTT_PHOTO },
+  { name:"Emily Uselman", title:"Chief Marketing Officer", phone:"706-325-3120", email:"emily@bnb-turnkey.com", website:"bnb-turnkey.com", brand:"BNB Turnkey", photo:EMILY_PHOTO },
+  { name:"Ava Girard", title:"Marketing Manager", phone:"803-507-3548", email:"ava@bnb-turnkey.com", website:"bnb-turnkey.com", brand:"BNB Turnkey", photo:AVA_PHOTO },
+  { name:"Mirabella Judd", title:"Marketing Manager", phone:"813-997-2074", email:"mirabella@bnb-turnkey.com", website:"bnb-turnkey.com", brand:"BNB Turnkey", photo:MIRABELLA_PHOTO },
+  { name:"Albert Brown", title:"Digital Marketing Manager", phone:"619-586-2817", email:"albert@bnb-turnkey.com", website:"bnb-turnkey.com", brand:"BNB Turnkey", photo:ALBERT_PHOTO },
+  { name:"Yushia Marae Tajanlangit", title:"Marketing Associate", phone:"", email:"yushia@bnb-turnkey.com", website:"bnb-turnkey.com", brand:"BNB Turnkey", photo:YUSHIA_PHOTO },
+  { name:"Elliott Caldwell", title:"CEO / Co-founder", phone:"", email:"elliott@hometeamluxuryrentals.com", website:"hometeamluxuryrentals.com", brand:"Home Team Luxury Rentals", photo:ELLIOTT_PHOTO },
+  { name:"Emily Uselman", title:"Chief Marketing Officer", phone:"706-325-3120", email:"emily@hometeamluxuryrentals.com", website:"hometeamluxuryrentals.com", brand:"Home Team Luxury Rentals", photo:EMILY_PHOTO },
+  { name:"Ava Girard", title:"Marketing Manager", phone:"803-507-3548", email:"ava@hometeamluxuryrentals.com", website:"hometeamluxuryrentals.com", brand:"Home Team Luxury Rentals", photo:AVA_PHOTO },
+  { name:"Mirabella Judd", title:"Marketing Manager", phone:"813-997-2074", email:"mirabella@hometeamluxuryrentals.com", website:"hometeamluxuryrentals.com", brand:"Home Team Luxury Rentals", photo:MIRABELLA_PHOTO },
+  { name:"Albert Brown", title:"Digital Marketing Manager", phone:"619-586-2817", email:"albert@hometeamluxuryrentals.com", website:"hometeamluxuryrentals.com", brand:"Home Team Luxury Rentals", photo:ALBERT_PHOTO },
+  { name:"Yushia Marae Tajanlangit", title:"Marketing Associate", phone:"", email:"yushia@hometeamluxuryrentals.com", website:"hometeamluxuryrentals.com", brand:"Home Team Luxury Rentals", photo:YUSHIA_PHOTO },
+  { name:"Elliott Caldwell", title:"CEO / Co-founder", phone:"", email:"elliott@paradiso-homes.com", website:"paradiso-homes.com", brand:"Paradiso", photo:ELLIOTT_PHOTO },
+  { name:"Emily Uselman", title:"Chief Marketing Officer", phone:"706-325-3120", email:"emily@paradiso-homes.com", website:"paradiso-homes.com", brand:"Paradiso", photo:EMILY_PHOTO },
+  { name:"Ava Girard", title:"Marketing Manager", phone:"803-507-3548", email:"ava@paradiso-homes.com", website:"paradiso-homes.com", brand:"Paradiso", photo:AVA_PHOTO },
+  { name:"Mirabella Judd", title:"Marketing Manager", phone:"813-997-2074", email:"mirabella@paradiso-homes.com", website:"paradiso-homes.com", brand:"Paradiso", photo:MIRABELLA_PHOTO },
+  { name:"Albert Brown", title:"Digital Marketing Manager", phone:"619-586-2817", email:"albert@paradiso-homes.com", website:"paradiso-homes.com", brand:"Paradiso", photo:ALBERT_PHOTO },
+  { name:"Yushia Marae Tajanlangit", title:"Marketing Associate", phone:"", email:"yushia@paradiso-homes.com", website:"paradiso-homes.com", brand:"Paradiso", photo:YUSHIA_PHOTO },
+  { name:"Elliott Caldwell", title:"CEO / Co-founder", phone:"", email:"elliott@bnbconstruction.co", website:"bnbconstruction.co", brand:"BNB Construction", photo:ELLIOTT_PHOTO },
+  { name:"Emily Uselman", title:"Chief Marketing Officer", phone:"706-325-3120", email:"emily@bnbconstruction.co", website:"bnbconstruction.co", brand:"BNB Construction", photo:EMILY_PHOTO },
+  { name:"Ava Girard", title:"Marketing Manager", phone:"803-507-3548", email:"ava@bnbconstruction.co", website:"bnbconstruction.co", brand:"BNB Construction", photo:AVA_PHOTO },
+  { name:"Mirabella Judd", title:"Marketing Manager", phone:"813-997-2074", email:"mirabella@bnbconstruction.co", website:"bnbconstruction.co", brand:"BNB Construction", photo:MIRABELLA_PHOTO },
+  { name:"Albert Brown", title:"Digital Marketing Manager", phone:"619-586-2817", email:"albert@bnbconstruction.co", website:"bnbconstruction.co", brand:"BNB Construction", photo:ALBERT_PHOTO },
+  { name:"Yushia Marae Tajanlangit", title:"Marketing Associate", phone:"", email:"yushia@bnbconstruction.co", website:"bnbconstruction.co", brand:"BNB Construction", photo:YUSHIA_PHOTO },
+  { name:"Elliott Caldwell", title:"CEO / Co-founder", phone:"", email:"elliott@sandkeyvacationrentals.com", website:"sandkeyvacationrentals.com", brand:"Sand Key Vacation Rentals", photo:ELLIOTT_PHOTO },
+  { name:"Emily Uselman", title:"Chief Marketing Officer", phone:"706-325-3120", email:"emily@sandkeyvacationrentals.com", website:"sandkeyvacationrentals.com", brand:"Sand Key Vacation Rentals", photo:EMILY_PHOTO },
+  { name:"Ava Girard", title:"Marketing Manager", phone:"803-507-3548", email:"ava@sandkeyvacationrentals.com", website:"sandkeyvacationrentals.com", brand:"Sand Key Vacation Rentals", photo:AVA_PHOTO },
+  { name:"Mirabella Judd", title:"Marketing Manager", phone:"813-997-2074", email:"mirabella@sandkeyvacationrentals.com", website:"sandkeyvacationrentals.com", brand:"Sand Key Vacation Rentals", photo:MIRABELLA_PHOTO },
+  { name:"Albert Brown", title:"Digital Marketing Manager", phone:"619-586-2817", email:"albert@sandkeyvacationrentals.com", website:"sandkeyvacationrentals.com", brand:"Sand Key Vacation Rentals", photo:ALBERT_PHOTO },
+  { name:"Yushia Marae Tajanlangit", title:"Marketing Associate", phone:"", email:"yushia@sandkeyvacationrentals.com", website:"sandkeyvacationrentals.com", brand:"Sand Key Vacation Rentals", photo:YUSHIA_PHOTO },
+  { name:"Elliott Caldwell", title:"CEO / Co-founder", phone:"", email:"elliott@hometeamluxuryrealty.com", website:"hometeamluxuryrealty.com", brand:"Home Team Luxury Realty", photo:ELLIOTT_PHOTO },
+  { name:"Emily Uselman", title:"Chief Marketing Officer", phone:"706-325-3120", email:"emily@hometeamluxuryrealty.com", website:"hometeamluxuryrealty.com", brand:"Home Team Luxury Realty", photo:EMILY_PHOTO },
+  { name:"Ava Girard", title:"Marketing Manager", phone:"803-507-3548", email:"ava@hometeamluxuryrealty.com", website:"hometeamluxuryrealty.com", brand:"Home Team Luxury Realty", photo:AVA_PHOTO },
+  { name:"Mirabella Judd", title:"Marketing Manager", phone:"813-997-2074", email:"mirabella@hometeamluxuryrealty.com", website:"hometeamluxuryrealty.com", brand:"Home Team Luxury Realty", photo:MIRABELLA_PHOTO },
+  { name:"Albert Brown", title:"Digital Marketing Manager", phone:"619-586-2817", email:"albert@hometeamluxuryrealty.com", website:"hometeamluxuryrealty.com", brand:"Home Team Luxury Realty", photo:ALBERT_PHOTO },
+  { name:"Yushia Marae Tajanlangit", title:"Marketing Associate", phone:"", email:"yushia@hometeamluxuryrealty.com", website:"hometeamluxuryrealty.com", brand:"Home Team Luxury Realty", photo:YUSHIA_PHOTO },
+  { name:"Elliott Caldwell", title:"CEO / Co-founder", phone:"", email:"elliott@strrealtorsearch.com", website:"strrealtorsearch.com", brand:"STR Realtor Search", photo:ELLIOTT_PHOTO },
+  { name:"Emily Uselman", title:"Chief Marketing Officer", phone:"706-325-3120", email:"emily@strrealtorsearch.com", website:"strrealtorsearch.com", brand:"STR Realtor Search", photo:EMILY_PHOTO },
+  { name:"Ava Girard", title:"Marketing Manager", phone:"803-507-3548", email:"ava@strrealtorsearch.com", website:"strrealtorsearch.com", brand:"STR Realtor Search", photo:AVA_PHOTO },
+  { name:"Mirabella Judd", title:"Marketing Manager", phone:"813-997-2074", email:"mirabella@strrealtorsearch.com", website:"strrealtorsearch.com", brand:"STR Realtor Search", photo:MIRABELLA_PHOTO },
+  { name:"Albert Brown", title:"Digital Marketing Manager", phone:"619-586-2817", email:"albert@strrealtorsearch.com", website:"strrealtorsearch.com", brand:"STR Realtor Search", photo:ALBERT_PHOTO },
+  { name:"Yushia Marae Tajanlangit", title:"Marketing Associate", phone:"", email:"yushia@strrealtorsearch.com", website:"strrealtorsearch.com", brand:"STR Realtor Search", photo:YUSHIA_PHOTO },
+  { name:"Elliott Caldwell", title:"CEO / Co-founder", phone:"", email:"elliott@legacy-business-services.com", website:"legacy-business-services.com", brand:"Legacy Business Services", photo:ELLIOTT_PHOTO },
+  { name:"Emily Uselman", title:"Chief Marketing Officer", phone:"706-325-3120", email:"emily@legacy-business-services.com", website:"legacy-business-services.com", brand:"Legacy Business Services", photo:EMILY_PHOTO },
+  { name:"Ava Girard", title:"Marketing Manager", phone:"803-507-3548", email:"ava@legacy-business-services.com", website:"legacy-business-services.com", brand:"Legacy Business Services", photo:AVA_PHOTO },
+  { name:"Mirabella Judd", title:"Marketing Manager", phone:"813-997-2074", email:"mirabella@legacy-business-services.com", website:"legacy-business-services.com", brand:"Legacy Business Services", photo:MIRABELLA_PHOTO },
+  { name:"Albert Brown", title:"Digital Marketing Manager", phone:"619-586-2817", email:"albert@legacy-business-services.com", website:"legacy-business-services.com", brand:"Legacy Business Services", photo:ALBERT_PHOTO },
+  { name:"Yushia Marae Tajanlangit", title:"Marketing Associate", phone:"", email:"yushia@legacy-business-services.com", website:"legacy-business-services.com", brand:"Legacy Business Services", photo:YUSHIA_PHOTO },
+  { name:"Elliott Caldwell", title:"CEO / Co-founder", phone:"", email:"elliott@surge-tax.com", website:"surge-tax.com", brand:"Surge Tax", photo:ELLIOTT_PHOTO },
+  { name:"Emily Uselman", title:"Chief Marketing Officer", phone:"706-325-3120", email:"emily@surge-tax.com", website:"surge-tax.com", brand:"Surge Tax", photo:EMILY_PHOTO },
+  { name:"Ava Girard", title:"Marketing Manager", phone:"803-507-3548", email:"ava@surge-tax.com", website:"surge-tax.com", brand:"Surge Tax", photo:AVA_PHOTO },
+  { name:"Mirabella Judd", title:"Marketing Manager", phone:"813-997-2074", email:"mirabella@surge-tax.com", website:"surge-tax.com", brand:"Surge Tax", photo:MIRABELLA_PHOTO },
+  { name:"Albert Brown", title:"Digital Marketing Manager", phone:"619-586-2817", email:"albert@surge-tax.com", website:"surge-tax.com", brand:"Surge Tax", photo:ALBERT_PHOTO },
+  { name:"Yushia Marae Tajanlangit", title:"Marketing Associate", phone:"", email:"yushia@surge-tax.com", website:"surge-tax.com", brand:"Surge Tax", photo:YUSHIA_PHOTO },
+  { name:"Elliott Caldwell", title:"CEO / Co-founder", phone:"", email:"elliott@bnb-lending.com", website:"www.bnb-lending.com", brand:"BNB Lending", photo:ELLIOTT_PHOTO },
+  { name:"Emily Uselman", title:"Chief Marketing Officer", phone:"706-325-3120", email:"emily@bnb-lending.com", website:"www.bnb-lending.com", brand:"BNB Lending", photo:EMILY_PHOTO },
+  { name:"Ava Girard", title:"Marketing Manager", phone:"803-507-3548", email:"ava@bnb-lending.com", website:"www.bnb-lending.com", brand:"BNB Lending", photo:AVA_PHOTO },
+  { name:"Mirabella Judd", title:"Marketing Manager", phone:"813-997-2074", email:"mirabella@bnb-lending.com", website:"www.bnb-lending.com", brand:"BNB Lending", photo:MIRABELLA_PHOTO },
+  { name:"Albert Brown", title:"Digital Marketing Manager", phone:"619-586-2817", email:"albert@bnb-lending.com", website:"www.bnb-lending.com", brand:"BNB Lending", photo:ALBERT_PHOTO },
+  { name:"Yushia Marae Tajanlangit", title:"Marketing Associate", phone:"", email:"yushia@bnb-lending.com", website:"www.bnb-lending.com", brand:"BNB Lending", photo:YUSHIA_PHOTO }
 ];
 
 // ---- simple generic icon glyphs (white paths on transparent, sit in a black rounded square) ----
@@ -236,47 +438,114 @@ function fieldContent(label, value, link, accent){
   if(!value) return "&nbsp;";
   const valHtml = link
     ? `<a href="${link}" style="color:${accent};text-decoration:none;">${value}</a>`
-    : `<span style="color:#1a1a1a;">${value}</span>`;
-  return `${label ? `<b>${label}</b> ` : ""}${valHtml}`;
+    : `<span style="color:${accent};">${value}</span>`;
+  return `${label ? `<b style="color:${accent};">${label}</b> ` : ""}${valHtml}`;
 }
 
 const SPACER_GIF = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";
 
 let compactIcons = false;
 
+function signatureHTML_roam(emp){
+  const brand = brandTemplates[emp.brand];
+  const bg = `background-color:${brand.bg};`;
+  const c = brand.text;
+  const companyColor = brand.nameAccent || c;
+  const logoW = brand.logoW || 118;
+  const logoH = brand.logoH || 48;
+  const font = "'Poppins','Century Gothic',Helvetica,Arial,sans-serif";
+
+  function fieldRow(iconUrl, label, text, link){
+    if(!text) return `<tr><td height="24" style="padding:0;${bg}">&nbsp;</td></tr>`;
+    const content = link
+      ? `<a href="${link}" style="color:${c};text-decoration:none;">${text}</a>`
+      : `<span style="color:${c};">${text}</span>`;
+    return `<tr><td height="24" style="vertical-align:middle;padding:0;font-size:14px;font-family:${font};color:${c};${bg}">${label ? `<b>${label}</b> ` : ""}${content}</td></tr>`;
+  }
+
+  return `
+  <table cellpadding="0" cellspacing="0" border="0" bgcolor="${brand.bg}" style="font-family:${font};border-collapse:collapse;${bg}">
+    <tr style="${bg}">
+      <td style="padding:20px 26px 20px 20px;vertical-align:middle;${bg}">
+        <table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;${bg}">
+          <tr><td style="text-align:center;padding:0 0 14px 0;${bg}">
+            <img src="${emp.photo}" width="145" height="145" style="display:block;border-radius:50%;border:3px solid ${c};" alt="${emp.name}">
+          </td></tr>
+          <tr><td style="text-align:center;padding:0;${bg}">
+            <img src="${brand.logo}" width="${logoW}" height="${logoH}" style="display:block;margin:0 auto;" alt="${brand.display}">
+          </td></tr>
+        </table>
+      </td>
+      <td style="padding:20px 20px 20px 0;vertical-align:middle;${bg}">
+        <table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;${bg}">
+          <tr><td height="20" style="vertical-align:top;font-size:15px;font-weight:700;letter-spacing:.03em;color:${c};padding:0;${bg}">${emp.name.toUpperCase()}</td></tr>
+          <tr><td height="20" style="vertical-align:top;font-size:13.5px;font-weight:400;color:${c};padding:0;${bg}">${emp.title}</td></tr>
+          <tr><td height="14" style="padding:0;${bg}">&nbsp;</td></tr>
+          <tr><td height="1" style="padding:0;font-size:1px;line-height:1px;border-bottom:1px solid ${c};${bg}">&nbsp;</td></tr>
+          <tr><td height="14" style="padding:0;${bg}">&nbsp;</td></tr>
+          <tr><td height="24" style="vertical-align:top;font-size:16px;font-weight:700;color:${companyColor};padding:0;${bg}">${brand.display.toUpperCase()}</td></tr>
+          <tr><td height="10" style="padding:0;${bg}">&nbsp;</td></tr>
+          ${fieldRow(brand.phoneIcon, "p:", emp.phone, null)}
+          ${fieldRow(brand.mailIcon, "e:", emp.email, "mailto:"+emp.email)}
+          <tr><td height="6" style="padding:0;${bg}">&nbsp;</td></tr>
+          <tr><td height="18" style="vertical-align:top;font-size:14px;font-weight:700;color:${c};padding:0;${bg}"><a href="https://${emp.website}" style="color:${c};text-decoration:none;">${emp.website}</a></td></tr>
+        </table>
+      </td>
+    </tr>
+  </table>`;
+}
+
 function signatureHTML(emp){
+  const layout = brandTemplates[emp.brand] && brandTemplates[emp.brand].layout;
+  if(layout === "roam") return signatureHTML_roam(emp);
+  return signatureHTML_rise(emp);
+}
+
+function signatureHTML_rise(emp){
   const brand = brandTemplates[emp.brand];
   const photo = emp.photo || initialsAvatar(emp.name);
-  const iconOrder = ["website","mail","linkedin","instagram","facebook","pinterest","youtube","podcast"];
-  const iconSize = compactIcons ? 17 : 26;
-  const iconGap = compactIcons ? "&nbsp;" : "&nbsp;&nbsp;";
-  const iconRowHeight = compactIcons ? 23 : 30;
-  const iconImgs = iconOrder.map(k => {
-    const url = brand.social[k];
-    if(!url) return "";
-    return `<a href="${url}"><img src="${ICON_URL[k]}" width="${iconSize}" height="${iconSize}" style="display:inline-block;vertical-align:top;" alt="${k}"></a>${iconGap}`;
-  }).join("");
+  const bgColor = brand.bg || "#ffffff";
+  const textColor = brand.text || "#1a1a1a";
+  const headerColor = brand.nameAccent || textColor;
+  const bg = `background-color:${bgColor};`;
 
-  const bg = "background-color:#ffffff;";
+  let bottomRowHeight, bottomRowContent;
+  if(brand.logo){
+    const logoW = brand.logoW || 118;
+    const logoH = brand.logoH || 30;
+    bottomRowHeight = logoH;
+    bottomRowContent = `<img src="${brand.logo}" width="${logoW}" height="${logoH}" style="display:block;" alt="${brand.display}">`;
+  } else {
+    const iconOrder = ["website","mail","linkedin","instagram","facebook","pinterest","youtube","podcast"];
+    const iconSize = compactIcons ? 17 : 26;
+    const iconGap = compactIcons ? "&nbsp;" : "&nbsp;&nbsp;";
+    bottomRowHeight = compactIcons ? 23 : 30;
+    bottomRowContent = iconOrder.map(k => {
+      const url = brand.social[k];
+      if(!url) return "";
+      return `<a href="${url}"><img src="${ICON_URL[k]}" width="${iconSize}" height="${iconSize}" style="display:inline-block;vertical-align:top;" alt="${k}"></a>${iconGap}`;
+    }).join("");
+  }
+
   return `
-  <table cellpadding="0" cellspacing="0" border="0" bgcolor="#ffffff" style="font-family:'Montserrat',Helvetica,Arial,sans-serif;border-collapse:collapse;background-color:#ffffff;color-scheme:light only;">
-    <tr style="background-color:#ffffff;">
-      <td style="padding-right:18px;vertical-align:middle;${bg}">
+  <table cellpadding="0" cellspacing="0" border="0" bgcolor="${bgColor}" style="font-family:'Montserrat',Helvetica,Arial,sans-serif;border-collapse:collapse;${bg}color-scheme:light only;">
+    <tr style="${bg}">
+      <td style="padding:20px 18px 20px 20px;vertical-align:middle;${bg}">
         <img src="${photo}" width="147" height="184" style="display:block;" alt="${emp.name}">
       </td>
-      <td style="vertical-align:middle;${bg}">
-        <table cellpadding="0" cellspacing="0" border="0" bgcolor="#ffffff" style="border-collapse:collapse;background-color:#ffffff;">
-          <tr><td height="20" style="vertical-align:top;font-size:13px;font-weight:700;letter-spacing:.07em;color:#1a1a1a;padding:0 0 6px 0;border-bottom:2px solid #1a1a1a;${bg}">${brand.display}</td></tr>
+      <td style="padding:20px 20px 20px 0;vertical-align:middle;${bg}">
+        <table cellpadding="0" cellspacing="0" border="0" bgcolor="${bgColor}" style="border-collapse:collapse;${bg}">
+          <tr><td height="20" style="vertical-align:top;font-size:13px;font-weight:700;letter-spacing:.07em;color:${headerColor};padding:0 0 6px 0;border-bottom:2px solid ${headerColor};${bg}">${brand.display}</td></tr>
           <tr><td height="8" style="vertical-align:top;font-size:1px;line-height:1px;padding:0;${bg}">&nbsp;</td></tr>
-          <tr><td height="18" style="vertical-align:top;font-size:15px;font-weight:700;letter-spacing:.03em;color:#1a1a1a;padding:0;${bg}">${emp.name.toUpperCase()}</td></tr>
-          <tr><td height="16" style="vertical-align:top;font-size:13.5px;color:#1a1a1a;padding:0;${bg}">${emp.title}</td></tr>
+          <tr><td height="18" style="vertical-align:top;font-size:15px;font-weight:700;letter-spacing:.03em;color:${textColor};padding:0;${bg}">${emp.name.toUpperCase()}</td></tr>
+          <tr><td height="16" style="vertical-align:top;font-size:13.5px;color:${textColor};padding:0;${bg}">${emp.title}</td></tr>
           <tr><td height="10" style="vertical-align:top;font-size:1px;line-height:1px;padding:0;${bg}">&nbsp;</td></tr>
-          <tr><td height="18" style="vertical-align:top;font-size:13px;padding:0;${bg}">${fieldContent("p:", emp.phone, null, "#1a1a1a")}</td></tr>
-          <tr><td height="18" style="vertical-align:top;font-size:13px;padding:0;${bg}">${fieldContent("e:", emp.email, "mailto:"+emp.email, "#1a1a1a")}</td></tr>
+          <tr><td height="18" style="vertical-align:top;font-size:13px;padding:0;${bg}">${fieldContent("p:", emp.phone, null, textColor)}</td></tr>
+          <tr><td height="18" style="vertical-align:top;font-size:13px;padding:0;${bg}">${fieldContent("e:", emp.email, "mailto:"+emp.email, textColor)}</td></tr>
           <tr><td height="6" style="vertical-align:top;font-size:1px;line-height:1px;padding:0;${bg}">&nbsp;</td></tr>
-          <tr><td height="18" style="vertical-align:top;font-size:13px;font-weight:700;padding:0;${bg}"><a href="https://${emp.website}" style="color:#1a1a1a;text-decoration:none;">${emp.website}</a></td></tr>
+          <tr><td height="18" style="vertical-align:top;font-size:13px;font-weight:700;padding:0;${bg}"><a href="https://${emp.website}" style="color:${textColor};text-decoration:none;">${emp.website}</a></td></tr>
           <tr><td height="10" style="vertical-align:top;font-size:1px;line-height:1px;padding:0;${bg}">&nbsp;</td></tr>
-          <tr><td height="${iconRowHeight}" style="vertical-align:top;line-height:0;padding:0;white-space:nowrap;${bg}">${iconImgs}</td></tr>
+          <tr><td height="${bottomRowHeight}" style="vertical-align:top;line-height:0;padding:0;white-space:nowrap;${bg}">${bottomRowContent}</td></tr>
         </table>
       </td>
     </tr>
@@ -285,6 +554,7 @@ function signatureHTML(emp){
 
 // ---- UI wiring ----
 const searchEl = document.getElementById("search");
+const brandFilterEl = document.getElementById("brandFilter");
 const listEl = document.getElementById("list");
 const previewEl = document.getElementById("preview");
 const brandTagEl = document.getElementById("brandTag");
@@ -293,10 +563,23 @@ const selectBtn = document.getElementById("selectBtn");
 const copyMsg = document.getElementById("copyMsg");
 let currentEmp = null;
 
+// populate brand dropdown from brandTemplates
+Object.keys(brandTemplates).forEach(brandKey => {
+  const opt = document.createElement("option");
+  opt.value = brandKey;
+  opt.textContent = brandTemplates[brandKey].display || brandKey;
+  brandFilterEl.appendChild(opt);
+});
+
 function renderList(query){
   const q = query.trim().toLowerCase();
-  if(!q){ listEl.style.display = "none"; listEl.innerHTML=""; return; }
-  const matches = employees.filter(e => e.name.toLowerCase().includes(q));
+  const brandVal = brandFilterEl.value;
+  let matches = employees.filter(e => brandVal === "all" || e.brand === brandVal);
+  if(q) matches = matches.filter(e => e.name.toLowerCase().includes(q));
+
+  // nothing to show if no query AND "All Brands" selected (avoid dumping the whole roster by default)
+  if(!q && brandVal === "all"){ listEl.style.display = "none"; listEl.innerHTML=""; return; }
+
   if(matches.length === 0){
     listEl.style.display = "block";
     listEl.innerHTML = `<div class="list-item" style="cursor:default;color:#8a8580;">No matches</div>`;
@@ -308,6 +591,8 @@ function renderList(query){
       ${e.name}<div class="t">${e.title} · ${e.brand}</div>
     </div>`).join("");
 }
+
+brandFilterEl.addEventListener("change", () => renderList(searchEl.value));
 
 listEl.addEventListener("click", (ev) => {
   const item = ev.target.closest(".list-item[data-idx]");
